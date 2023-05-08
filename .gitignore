@@ -1,0 +1,4 @@
+public/resources/users/photoProfile/*
+.env
+node_modules/
+.idea/
