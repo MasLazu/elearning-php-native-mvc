@@ -31,11 +31,11 @@ class MahasiswaOnly implements Middleware
     {
         $role = $this->sessionService->getRole();
         if($role == null){
-            View::redirect("/auth/login", "you are not logged in");
+            View::redirect("/auth/login", "message=you are not logged in");
             return;
         }
         if($role != "mahasiswa"){
-            View::redirect("/$role/beranda", "you are not mahasiswa");
+            View::redirect("/$role/beranda", "message=you are not mahasiswa");
             return;
         }
         $this->sessionService->extandExpired();

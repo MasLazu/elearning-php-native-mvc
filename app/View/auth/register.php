@@ -4,7 +4,7 @@
             <h1 class="text-5xl font-semibold mb-6">Register</h1>
             <h2 class="text-slate-500 mb-8">Get started your education in IT Pens</h2>
             <?php if(isset($model['error'])){ ?>
-                <div class="alert alert-error rounded-lg" id="alert">
+                <div class="alert alert-error rounded-lg opacity-0 hidden transition-all duration-500" id="alert">
                     <div>
                         <i class="fa-solid fa-circle-check mt-1"></i>
                         <span>Error! <?= $model['error'] ?></span>
@@ -26,7 +26,15 @@
     </div>
 </main>
 <script>
+    <?php if(isset($model['error'])){ ?>
+    const alert = document.getElementById("alert");
+    alert.classList.remove('hidden')
+    alert.classList.remove('opacity-0')
     setTimeout(() => {
-        document.getElementById("alert").classList.add("hidden")
+        alert.classList.add("opacity-0")
+        setTimeout(() => {
+            alert.classList.add('hidden')
+        }, 500)
     }, 5000)
+    <?php } ?>
 </script>

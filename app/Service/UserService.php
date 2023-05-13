@@ -88,8 +88,12 @@ class UserService
     {
         $user = $this->userRepository->findByEmail($userRequest->email);
         $user->role_id = $userRequest->role_id;
+        if($user->role_id == '3'){
+            $user->jurusan_id = $userRequest->jurusan_id;
+            $user->kelas_id = $userRequest->kelas_id;
+        }
         $user->approved_at = new \DateTime();
-        $this->userRepository->updateRoleAndApprovedAtById($user);
+        $this->userRepository->updateUserData($user);
     }
 
     public function detailRegister(User $request): void
@@ -100,8 +104,6 @@ class UserService
         $user->tanggal_lahir = $request->tanggal_lahir;
         $user->jenis_kelamin = $request->jenis_kelamin;
         $user->domisili = $request->domisili;
-        $user->asal_sekolah = $request->asal_sekolah;
-        $user->nama_wali = $request->nama_wali;
         $user->jurusan_id = $request->jurusan_id;
     }
 }

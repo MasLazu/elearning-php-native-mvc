@@ -5,95 +5,43 @@
             <h1 class="text-2xl font-semibold">Beranda</h1>
         </div>
         <div class="flex-none">
-            <h3 class="mr-4 font-semibold"><?= $model['username'] ?></h3>
-            <div class="dropdown dropdown-end">
-                <label tabindex="0" class="btn btn-ghost btn-circle avatar">
-                    <div class="w-10 rounded-full">
-                        <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                    </div>
-                </label>
-                <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                    <li>
-                        <a class="justify-between">
-                            Profile
-                            <span class="badge">New</span>
-                        </a>
-                    </li>
-                    <li><a>Settings</a></li>
-                    <li><a>Logout</a></li>
-                </ul>
-            </div>
+            <h3 class="mr-4 font-semibold"><?= $model['user']->nama ?></h3>
+            <a href="<?= $model['domain'] . "/user_profile" ?>" tabindex="0" class="btn btn-ghost btn-circle avatar">
+                <div class="w-10 rounded-full">
+                    <img src="<?= str_replace(['C:\xampp\htdocs\coba-mvc\app\Service/../../public', '\\'], $model['domain'], $model['user']->link_foto) ?>" />
+                </div>
+            </a>
         </div>
     </div>
-    <div class="mb-6 px-6">
+    <div class="p-10">
         <div class="class-row">
             <div class="flex justify-between items-end">
-                <h2 class="my-3 text-xl font-semibold">Class You are Taking</h2>
+                <h2 class="text-xl font-semibold">Matakuliah yang diikuti</h2>
                 <p>Slidable</p>
             </div>
             <div id="splide" class="splide">
                 <div class="splide__track">
                     <ul class="splide__list">
+                        <?php foreach ($model['matakuliah'] as $matakuliah) { ?>
                         <li class="splide__slide p-1">
-                            <div class="border-2 rounded-md p-3">
+                            <div class="border-2 rounded-md p-3 hover:shadow-md duration-100 cursor-grab active:cursor-grabbing">
                                 <div class="flex justify-between">
                                     <div>
-                                        <h4 class="text-2xl font-semibold">Basis Data</h4>
-                                        <p class="text-sm mb-4">Tessy Badriah S.KOM, MT, Ph.D</p>
-                                        <p>Kamis, 08:00 - 09:40</p>
+                                        <h4 class="text-2xl font-semibold"><?= $matakuliah['nama'] ?></h4>
+                                        <p class="text-sm mb-4"><?= $matakuliah['nama_dosen'] ?></p>
                                     </div>
-                                    <img class="w-12 h-12 rounded-md" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                                    <img class="w-12 h-12 rounded-md" src="<?= str_replace(['C:\xampp\htdocs\coba-mvc\app\Service/../../public', '\\'], $model['domain'], $matakuliah['foto_dosen']) ?>" />
+                                </div>
+                                <div class="flex justify-between">
+                                    <p><?= $matakuliah['hari'] ?>, <?= $matakuliah['jam_mulai'] ?> - <?= $matakuliah['jam_selesai'] ?></p>
+                                    <p><?= $matakuliah['ruangan'] ?></p>
                                 </div>
                                 <div class="flex justify-end mt-4">
-                                    <button class="btn btn-active btn-sm text-xs">Access Class <i class="fa-solid fa-arrow-right ml-2"></i></button>
+                                    <a href="<?= $model['domain'] . "/mahasiswa/detail_matakuliah/?id=" . $matakuliah['id'] ?>" class="btn btn-active btn-sm text-xs">Access Class <i class="fa-solid fa-arrow-right ml-2"></i></a>
                                 </div>
                             </div>
                         </li>
-                        <li class="splide__slide p-1">
-                            <div class="border-2 rounded-md p-3">
-                                <div class="flex justify-between">
-                                    <div>
-                                        <h4 class="text-2xl font-semibold">Pemrograman web</h4>
-                                        <p class="text-sm mb-4">Muarifin S.ST., M.T</p>
-                                        <p>Kamis, 08:00 - 09:40</p>
-                                    </div>
-                                    <img class="w-12 h-12 rounded-md" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                                </div>
-                                <div class="flex justify-end mt-4">
-                                    <button class="btn btn-active btn-sm text-xs">Access Class <i class="fa-solid fa-arrow-right ml-2"></i></button>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="splide__slide p-1">
-                            <div class="border-2 rounded-md p-3">
-                                <div class="flex justify-between">
-                                    <div>
-                                        <h4 class="text-2xl font-semibold">Algoritma dan Struktur Data</h4>
-                                        <p class="text-sm mb-4">Umi Sa'adah S.Kom, M.Kom</p>
-                                        <p>Kamis, 08:00 - 13:00</p>
-                                    </div>
-                                    <img class="w-12 h-12 rounded-md" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                                </div>
-                                <div class="flex justify-end mt-4">
-                                    <button class="btn btn-active btn-sm text-xs">Access Class <i class="fa-solid fa-arrow-right ml-2"></i></button>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="splide__slide p-1">
-                            <div class="border-2 rounded-md p-3">
-                                <div class="flex justify-between">
-                                    <div>
-                                        <h4 class="text-2xl font-semibold">Basis Data</h4>
-                                        <p class="text-sm mb-4">Tessy Badriah S.KOM, MT, Ph.D</p>
-                                        <p>Kamis, 08:00 - 09:40</p>
-                                    </div>
-                                    <img class="w-12 h-12 rounded-md" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                                </div>
-                                <div class="flex justify-end mt-4">
-                                    <button class="btn btn-active btn-sm text-xs">Access Class <i class="fa-solid fa-arrow-right ml-2"></i></button>
-                                </div>
-                            </div>
-                        </li>
+                        <?php } ?>
                     </ul>
                 </div>
                 <div class="splide__arrows splide__arrows--ltr">
@@ -102,35 +50,17 @@
                 </div>
             </div>
         </div>
-        <div class="pengumuman-row">
-            <h2 class="my-3 text-xl font-semibold">Pengumuman</h2>
+        <div class="pengumuman-row my-3">
+            <div class="flex justify-between mb-2">
+                <h2 class="text-xl font-semibold">Pengumuman</h2>
+            </div>
             <ul class="space-y-2">
-                <li class="border-2 rounded-md w-full p-3">
-                    <h3 class="text-xl font-semibold mb-3">Wisuda Kelulusan PENS 2020</h3>
-                    <p>
-                        PENS telah melaksanakan wisuda keluluasan jenjang
-                        pendidikan D3 pada tanggal 14 April 2023. Mahasiswa
-                        jenjang pendidikan D3 tersebut diharapkan dapat menjadi
-                        penerus bangsa yang memiliki skill yang berguna di industri
-                    </p>
-                </li>
-                <li class="border-2 rounded-md w-full p-3">
-                    <h3 class="text-xl font-semibold mb-3">Daftar Ulang Segera Ditutup</h3>
-                    <p>
-                        Daftar ulang semester genap tahun ajaran 2023 akan segera
-                        ditutup, untuk itu dihimbau mahasiswa dapat segera melunasi
-                        pembayaran UKT dan segera melakukan pendaftaran ulang.
-                    </p>
-                </li>
-                <li class="border-2 rounded-md w-full p-3">
-                    <h3 class="text-xl font-semibold mb-3">Wisuda Kelulusan PENS 2019</h3>
-                    <p>
-                        PENS telah melaksanakan wisuda keluluasan jenjang
-                        pendidikan D3 pada tanggal 14 April 2022. Mahasiswa
-                        jenjang pendidikan D3 tersebut diharapkan dapat menjadi
-                        penerus bangsa yang memiliki skill yang berguna di industri
-                    </p>
-                </li>
+                <?php foreach ($model['pengumuman'] as $pengumuman) { ?>
+                    <li class="border-2 rounded-md w-full p-3 hover:shadow-md duration-100">
+                        <h3 class="text-xl font-semibold mb-3"><?= $pengumuman->judul ?></h3>
+                        <p><?= $pengumuman->isi ?></p>
+                    </li>
+                <?php } ?>
             </ul>
         </div>
     </div>

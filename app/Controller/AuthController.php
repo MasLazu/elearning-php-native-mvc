@@ -77,9 +77,10 @@ class AuthController
         $user->tanggal_lahir = new \DateTime($_POST['tanggal_lahir']);
         $user->jenis_kelamin = $_POST['jenis_kelamin'];
         $user->domisili = $_POST['domisili'];
-        $user->asal_sekolah = $_POST['asal_sekolah'];
-        $user->nama_wali = $_POST['nama_wali'];
         $user->jurusan_id = $_POST['jurusan'];
+        if($user->link_foto){
+            unlink($user->link_foto);
+        }
         $user->link_foto = $link_foto;
 
         $this->userRepository->updateUserData($user);
@@ -112,7 +113,10 @@ class AuthController
         $user = $this->userService->login($request);
 
         if($user["error"]){
-            View::redirect("/auth/login", "error=" . $user['error']);
+            View::render("auth/login", [
+                "error" => $user['error']
+            ]);
+            return;
         }
 
         if(!$user['role']){
@@ -130,5 +134,15 @@ class AuthController
     {
         $this->sessionService->destroy();
         View::redirect("/auth/login", "message=Log out success");
+    }
+
+    public function user_profile(): void
+    {
+        $user = $this->sessionService->current();
+        $userRole = $this->sessionService->getRole();
+        View::render("auth/user_profile", [
+            "user" => $user,
+            "role" => $userRole,
+        ]);
     }
 }

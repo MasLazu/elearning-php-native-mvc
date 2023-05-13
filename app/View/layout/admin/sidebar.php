@@ -13,6 +13,24 @@
                         </div>
                         <span class="ml-3">Beranda</span>
                     </a>
+                    <a href="<?= $model['domain'] ?>/admin/users" class="flex items-center p-2.5 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <div class="w-8 flex justify-center text-[#9ca3af] text-xl">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <span class="ml-3">Users</span>
+                    </a>
+                    <a href="<?= $model['domain'] ?>/admin/kelas" class="flex items-center p-2.5 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <div class="w-8 flex justify-center">
+                            <i class="fa-solid fa-school-flag text-[#9ca3af] mx-1 text-xl"></i>
+                        </div>
+                        <span class="ml-3">kelas</span>
+                    </a>
+                    <a href="<?= $model['domain'] ?>/admin/mata_kuliah" class="flex items-center p-2.5 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <div class="w-8 flex justify-center">
+                            <i class="fa-solid fa-person-chalkboard text-[#9ca3af] mx-1 text-xl"></i>
+                        </div>
+                        <span class="ml-3">Mata kuliah</span>
+                    </a>
                     <a href="<?= $model['domain'] ?>/admin/request" class="flex items-center p-2.5 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                         <div class="w-8 flex justify-center">
                             <i class="fa-solid fa-code-pull-request text-[#9ca3af] mx-1 text-xl"></i>

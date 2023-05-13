@@ -2,8 +2,6 @@
 
 namespace CobaMVC\Service;
 
-use CobaMVC\Service\SessionService;
-
 class FileService
 {
     private SessionService $sessionService;

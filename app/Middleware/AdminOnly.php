@@ -31,11 +31,11 @@ class AdminOnly implements Middleware
     {
         $role = $this->sessionService->getRole();
         if($role == null){
-            View::redirect("/auth/login", "you are not logged in");
+            View::redirect("/auth/login", "message=you are not logged in");
             return;
         }
         if($role != "admin"){
-            View::redirect("/$role/beranda", "you are not admin");
+            View::redirect("/$role/beranda", "message=you are not admin");
             return;
         }
         $this->sessionService->extandExpired();
