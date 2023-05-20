@@ -19,9 +19,9 @@
                 <i class="fa-solid fa-plus text-4xl text-white"></i>
             </label>
             <?php foreach ($model['kelas'] as $kelas) { ?>
-            <a href="<?= $model['domain'] . "/admin/kelas_detail/?id=" . $kelas->id ?>" class="border-2 rounded-lg hover:shadow-md duration-100 hover:cursor-pointer">
+            <a href="<?= $model['domain'] . "/admin/kelas_detail/?id=" . $kelas['id'] . "&semester=" . $kelas['semester_id'] ?>" class="border-2 rounded-lg hover:shadow-md duration-100 hover:cursor-pointer">
                 <div class="header p-6 bg-[#1f2937] rounded-t-lg cursor-pointer">
-                    <h4 class="text-3xl font-semibold text-center text-white"><?= $kelas->nama ?></h4><!--format : semester kelas-->
+                    <h4 class="text-3xl font-semibold text-center text-white"><?= $kelas['semester_id'] . " " . $kelas['nama'] ?></h4><!--format : semester kelas-->
                 </div>
                 <div class="member grid grid-cols-2 px-4 py-6">
                     <div class="col-1">

@@ -9,6 +9,7 @@ use CobaMVC\Domain\Matakuliah;
 use CobaMVC\Domain\Pengumuman;
 use CobaMVC\Domain\User;
 use CobaMVC\Domain\MatakuliahKelas;
+use CobaMVC\Repository\JurusanRepository;
 use CobaMVC\Repository\MatakuliahRepository;
 use CobaMVC\Repository\PengumumanRepositry;
 use CobaMVC\Repository\SessionRepository;
@@ -28,6 +29,7 @@ require_once __DIR__ . "/../Repository/UserRepository.php";
 require_once __DIR__ . "/../Repository/KelasRepository.php";
 require_once __DIR__ . "/../Repository/MatakuliahRepository.php";
 require_once __DIR__ . "/../Repository/PengumumanRepositry.php";
+require_once __DIR__ . "/../Repository/JurusanRepository.php";
 require_once __DIR__ . "/../Service/SessionService.php";
 require_once __DIR__ . "/../Service/UserService.php";
 require_once __DIR__ . "/../Service/MatakuliahService.php";
@@ -41,11 +43,13 @@ class AdminController
     private MatakuliahRepository $matakuliahRepository;
     private MatakuliahService $matakuliahService;
     private PengumumanRepositry $pengumumanRepositry;
+    private JurusanRepository $jurusanRepository;
 
     public function __construct()
     {
         $connection = Database::getConnection();
         $matakuliahRepository = new MatakuliahRepository($connection);
+        $this->jurusanRepository = new JurusanRepository($connection);
         $this->matakuliahRepository = $matakuliahRepository;
         $this->matakuliahService = new MatakuliahService($matakuliahRepository);
         $this->pengumumanRepositry = new PengumumanRepositry($connection);
@@ -86,6 +90,7 @@ class AdminController
         if($user->role_id == '3'){
             $user->jurusan_id = intval($_POST['jurusan_id']);
             $user->kelas_id = intval($_POST['kelas_id']);
+            $user->semester_id = 1;
         }
         $this->userService->approveByEmail($user);
         View::redirect("/admin/request", "message=success approve " . $user->email);
@@ -103,7 +108,7 @@ class AdminController
 
     public function kelas(): void
     {
-        $kelas = $this->kelasRepository->getAll();
+        $kelas = $this->kelasRepository->getAllWithSemesterWhereHaveMember();
         $user = $this->sessionService->current();
         View::render("admin/kelas", [
             "user" => $user,
@@ -155,24 +160,36 @@ class AdminController
 
     public function user_detail(): void
     {
+        $jurusan = $this->jurusanRepository->getAllJurusan();
+        $kelas = $this->kelasRepository->getAll();
         $detailUser = $this->userRepository->findById($_GET['id']);
         View::render("admin/user_detail", [
+            "jurusan" => $jurusan,
             "detail_user" => $detailUser,
+            "kelas" => $kelas,
         ]);
     }
 
     public function kelas_detail(): void
     {
-        $kelas = $this->kelasRepository->getById($_GET['id']);
-        $users = $this->userRepository->getAllUserWithCertainKelas($_GET['id']);
+        $user = $this->sessionService->current();
+        $kelas_id = intval($_GET['id']);
+        $semester = intval($_GET['semester']);
+        $matakuliah = $this->matakuliahRepository->getAllWithCertainKelasWithDosenName(intval($_GET['id']), intval($_GET['semester']));
+        $kelas = $this->kelasRepository->getById($kelas_id);
+        $users = $this->userRepository->getAllUserWithCertainKelasAndSemester($kelas_id, $semester);
         View::render("admin/kelas_detail", [
             "kelas" => $kelas,
+            "semester" => $semester,
             "users" => $users,
+            "user" => $user,
+            "matakuliah" => $matakuliah,
         ]);
     }
 
     public function mata_kuliah_detail(): void
     {
+        $user = $this->sessionService->current();
         $matakuliah = $this->matakuliahRepository->getById(intval($_GET['id']));
         $dosen = $this->userRepository->findById($matakuliah->dosen_id);
         $kelas = $this->matakuliahRepository->getKelasYangMengikutiById(intval($_GET['id']));
@@ -180,6 +197,7 @@ class AdminController
             "matakuliah" => $matakuliah,
             "dosen" => $dosen,
             "kelas" => $kelas,
+            "user" => $user,
         ]);
     }
 
@@ -202,5 +220,21 @@ class AdminController
         $pengumuman->isi = $_POST['isi'];
         $this->pengumumanRepositry->save($pengumuman);
         View::redirect("/admin/beranda", "message=berhasil membuat pengumuman");
+    }
+
+    public function update_user_data(): void
+    {
+        $user = $this->userRepository->findById($_POST['id']);
+        $user->id = $_POST['id'];
+        $user->nama = $_POST['nama'];
+        $user->jurusan_id = $_POST['jurusan_id'];
+        $user->kelas_id = $_POST['kelas_id'];
+        $user->tempat_lahir = $_POST['tempat_lahir'];
+        $user->tanggal_lahir = new \DateTime($_POST['tanggal_lahir']);
+        $user->jenis_kelamin = $_POST['jenis_kelamin'];
+        $user->semester_id = $_POST['semester_id'];
+        $user->domisili = $_POST['domisili'];
+        $this->userRepository->updateUserData($user);
+        View::redirect("/admin/user_detail", "id=" . $user->id . "&message=berhasil merubah data");
     }
 }

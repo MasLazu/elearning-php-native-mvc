@@ -116,4 +116,54 @@ class MatakuliahRepository
         }
         return $result;
     }
+
+    public function getMatakuliahYangDiikutiWithDosenByUserId(int $user_id, int $semester_id): ?array
+    {
+        $statement = $this->connection->prepare("SELECT p.id, p.nama, p.dosen_id, p.hari, p.jam_mulai, p.jam_selesai, p.ruangan, d.nama AS nama_dosen, d.link_foto AS foto_dosen  FROM pelajaran p, pelajaran_kelas pk, users d, users u WHERE p.id = pk.pelajaran_id AND d.id = p.dosen_id AND pk.kelas_id = u.kelas_id AND pk.semester_id = ? AND u.id = ?");
+        $statement->execute([$semester_id, $user_id]);
+        $result=[];
+        while ($row = $statement->fetch(\PDO::FETCH_ASSOC)){
+            $matakuliah['id'] = $row['id'];
+            $matakuliah['nama'] = $row['nama'];
+            $matakuliah['dosen_id'] = $row['dosen_id'];
+            $matakuliah['hari'] = $row['hari'];
+            $matakuliah['jam_mulai'] = $row['jam_mulai'];
+            $matakuliah['jam_selesai'] = $row['jam_selesai'];
+            $matakuliah['ruangan'] = $row['ruangan'];
+            $matakuliah['nama_dosen'] = $row['nama_dosen'];
+            $matakuliah['foto_dosen'] = $row['foto_dosen'];
+            $result[]= $matakuliah;
+        }
+        return $result;
+    }
+
+    public function getMatakuliahYangDiajar(int $dosen_id): array
+    {
+        $statement = $this->connection->prepare("SELECT id, nama, dosen_id, hari, jam_mulai, jam_selesai, ruangan FROM pelajaran WHERE dosen_id = ?");
+        $statement->execute([$dosen_id]);
+        $result = [];
+        while ($row = $statement->fetch(\PDO::FETCH_ASSOC)){
+            $matakuliah = new Matakuliah();
+            $matakuliah->id = $row['id'];
+            $matakuliah->nama = $row['nama'];
+            $matakuliah->dosen_id = $row['dosen_id'];
+            $matakuliah->hari = $row['hari'];
+            $matakuliah->jam_mulai = $row['jam_mulai'];
+            $matakuliah->jam_selesai = $row['jam_selesai'];
+            $matakuliah->ruangan = $row['ruangan'];
+            $result[]= $matakuliah;
+        }
+        return $result;
+    }
+
+    public function getAllWithCertainKelasWithDosenName(int $kelas_id, int $semester): array
+    {
+        $statement = $this->connection->prepare("SELECT p.id, p.nama, p.dosen_id, p.hari, p.jam_mulai, p.jam_selesai, p.ruangan, u.nama AS dosen_name FROM pelajaran p, pelajaran_kelas pk, users u WHERE pk.pelajaran_id = p.id AND u.id = p.dosen_id AND pk.kelas_id = ? AND pk.semester_id = ?");
+        $statement->execute([$kelas_id, $semester]);
+        $result = [];
+        while ($row = $statement->fetch(\PDO::FETCH_ASSOC)){
+            $result[]= $row;
+        }
+        return $result;
+    }
 }

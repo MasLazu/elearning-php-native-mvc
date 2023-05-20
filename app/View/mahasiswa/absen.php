@@ -2,7 +2,7 @@
 <main class="grow h-screen overflow-y-auto">
     <div class="navbar bg-base-100 border-b-2 px-6">
         <div class="flex-1">
-            <h1 class="text-2xl font-semibold">Beranda</h1>
+            <h1 class="text-2xl font-semibold">Absen</h1>
         </div>
         <div class="flex-none">
             <h3 class="mr-4 font-semibold"><?= $model['user']->nama ?></h3>
@@ -15,19 +15,17 @@
     </div>
     <div class="p-10">
         <div class="row flex items-center gap-x-3">
-            <label class="label w-32">Tahun Ajaran</label>
-            <select class="select select-bordered select-sm">
-                <option>2022-2023</option>
-                <option>2021-2022</option>
-                <option>2020-2021</option>
-                <option>2019-2020</option>
-            </select>
-        </div>
-        <div class="row flex items-center gap-x-3">
             <label class="label w-32">Semester</label>
-            <select class="select select-bordered select-sm">
-                <option value="genap">Genap</option>
-                <option value="ganjil">Ganjil</option>
+            <select class="select select-bordered select-sm" required>
+                <option value="" selected disabled>Semester</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
             </select>
         </div>
         <div class="overflow-x-auto mt-6">

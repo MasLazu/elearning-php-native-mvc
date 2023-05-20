@@ -29,14 +29,8 @@ class GuestOnly implements Middleware
     {
         $user = $this->sessionService->current();
         if($user){
-            return;
+            $role = $this->sessionService->getRole();
+            View::redirect("/$role/beranda");
         }
-
-        $role = $this->sessionService->getRole();
-        if(!$role){
-            return;
-        }
-
-        View::redirect("/$role/beranda" );
     }
 }

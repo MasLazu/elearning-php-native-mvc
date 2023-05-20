@@ -3,7 +3,6 @@
 namespace CobaMVC\Repository;
 
 use CobaMVC\Domain\Session;
-use CobaMVC\Domain\User;
 
 require_once __DIR__ . "/../Domain/Session.php";
 

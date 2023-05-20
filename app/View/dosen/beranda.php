@@ -1,4 +1,4 @@
-<?php require __DIR__ . "/../layout/mahasiswa/sidebar.php"; ?>
+<?php require __DIR__ . "/../layout/dosen/sidebar.php"; ?>
 <main class="grow h-screen overflow-y-auto">
     <div class="navbar bg-base-100 border-b-2 px-6">
         <div class="flex-1">
@@ -22,25 +22,14 @@
             <div id="splide" class="splide">
                 <div class="splide__track">
                     <ul class="splide__list">
-                        <?php if(count($model['matakuliah'])==0) { ?>
-                            <li class="splide__slide h-36 grid items-center text-center">Tidak ada kelas yang diikuti</li>
-                        <?php } ?>
                         <?php foreach ($model['matakuliah'] as $matakuliah) { ?>
                         <li class="splide__slide p-1">
                             <div class="border-2 rounded-md p-3 hover:shadow-md duration-100 cursor-grab active:cursor-grabbing">
-                                <div class="flex justify-between">
-                                    <div>
-                                        <h4 class="text-2xl font-semibold"><?= $matakuliah['nama'] ?></h4>
-                                        <p class="text-sm mb-4"><?= $matakuliah['nama_dosen'] ?></p>
-                                    </div>
-                                    <img class="w-12 h-12 rounded-md" src="<?= str_replace(['C:\xampp\htdocs\coba-mvc\app\Service/../../public', '\\'], $model['domain'], $matakuliah['foto_dosen']) ?>" />
-                                </div>
-                                <div class="flex justify-between">
-                                    <p><?= $matakuliah['hari'] ?>, <?= $matakuliah['jam_mulai'] ?> - <?= $matakuliah['jam_selesai'] ?></p>
-                                    <p><?= $matakuliah['ruangan'] ?></p>
-                                </div>
+                                <h4 class="text-2xl font-semibold mb-2"><?= $matakuliah->nama ?></h4>
+                                <p><?= $matakuliah->hari ?>, <?= $matakuliah->jam_mulai ?> - <?= $matakuliah->jam_selesai ?></p>
+                                <p><?= $matakuliah->ruangan ?></p>
                                 <div class="flex justify-end mt-4">
-                                    <a href="<?= $model['domain'] . "/mahasiswa/detail_matakuliah/?id=" . $matakuliah['id'] ?>" class="btn btn-active btn-sm text-xs">Access Class <i class="fa-solid fa-arrow-right ml-2"></i></a>
+                                    <a href="<?= $model['domain'] . "/dosen/detail_matakuliah/?id=" . $matakuliah->id ?>" class="btn btn-active btn-sm text-xs">Access Class <i class="fa-solid fa-arrow-right ml-2"></i></a>
                                 </div>
                             </div>
                         </li>
@@ -53,7 +42,7 @@
                 </div>
             </div>
         </div>
-        <div class="pengumuman-row my-3">
+        <div class="pengumuman-row">
             <div class="flex justify-between mb-2">
                 <h2 class="text-xl font-semibold">Pengumuman</h2>
             </div>

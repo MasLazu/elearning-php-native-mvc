@@ -31,7 +31,6 @@ class LoginOnly implements Middleware
         $user = $this->sessionService->current();
         if(!$user){
             View::redirect("/auth/login", "message=you are not logged in");
-            return;
         }
         $this->sessionService->extandExpired();
     }

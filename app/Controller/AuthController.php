@@ -42,7 +42,7 @@ class AuthController
         $sessionService = new SessionService($sessionRepository, $userRepository);
         $this->sessionService = $sessionService;
         $this->userService = new UserService($userRepository, $sessionRepository, $sessionService);
-        $this->fileService = new fileService($sessionService);
+        $this->fileService = new fileService();
     }
 
     public function Login_page(): void
@@ -67,11 +67,12 @@ class AuthController
 
     public function detail_register(): void
     {
+        $user = $this->sessionService->current();
+
         if(isset($_FILES['foto']) && $_FILES['foto']['error'] == UPLOAD_ERR_OK){
-            $link_foto = $this->fileService->uploadPhotoProfile($_FILES['foto']['tmp_name'], $_FILES['foto']['name']);
+            $link_foto = $this->fileService->uploadPhotoProfile($user->id, $_FILES['foto']['tmp_name'], $_FILES['foto']['name']);
         }
 
-        $user = $this->sessionService->current();
         $user->nama = $_POST['nama'];
         $user->tempat_lahir = $_POST['tempat_lahir'];
         $user->tanggal_lahir = new \DateTime($_POST['tanggal_lahir']);

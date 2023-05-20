@@ -52,4 +52,15 @@ class KelasRepository
         }
         return $result;
     }
+
+    public function getAllWithSemesterWhereHaveMember(): array
+    {
+        $statement = $this->connection->prepare("SELECT k.id, k.nama, k.jurusan_id, u.semester_id FROM kelas k, users u WHERE u.kelas_id = k.id AND u.semester_id IS NOT NULL GROUP BY u.semester_id, k.id ORDER BY k.nama, u.semester_id");
+        $statement->execute();
+        $result = [];
+        while ($row = $statement->fetch(\PDO::FETCH_ASSOC)){
+            $result[]=$row;
+        }
+        return $result;
+    }
 }

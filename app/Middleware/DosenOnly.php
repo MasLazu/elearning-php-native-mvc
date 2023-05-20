@@ -34,7 +34,7 @@ class DosenOnly implements Middleware
             View::redirect("/auth/login", "message=you are not logged in");
             return;
         }
-        if($role != "admin"){
+        if($role != "dosen"){
             View::redirect("/$role/beranda", "message=you are not dosen");
             return;
         }

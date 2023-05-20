@@ -2,7 +2,7 @@
 <main class="grow h-screen overflow-y-auto">
     <div class="navbar bg-base-100 border-b-2 px-6">
         <div class="flex-1">
-            <h1 class="text-2xl font-semibold">Beranda</h1>
+            <h1 class="text-2xl font-semibold">Request</h1>
         </div>
         <div class="flex-none">
             <h3 class="mr-4 font-semibold"><?= $model['user']->nama ?></h3>

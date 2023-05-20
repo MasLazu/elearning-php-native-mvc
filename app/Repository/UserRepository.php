@@ -138,10 +138,10 @@ class UserRepository
         return $result;
     }
 
-    public function getAllUserWithCertainKelas(int $kelas_id): array
+    public function getAllUserWithCertainKelasAndSemester(int $kelas_id, int $semester_id): array
     {
-        $statement = $this->connection->prepare("SELECT id, nama, email, password, role_id, kelas_id, tanggal_lahir, tempat_lahir, jenis_kelamin, domisili, jurusan_id, link_foto, approved_at, semester_id FROM users WHERE kelas_id = ?");
-        $statement->execute([$kelas_id]);
+        $statement = $this->connection->prepare("SELECT id, nama, email, password, role_id, kelas_id, tanggal_lahir, tempat_lahir, jenis_kelamin, domisili, jurusan_id, link_foto, approved_at, semester_id FROM users WHERE kelas_id = ? AND semester_id = ?");
+        $statement->execute([$kelas_id, $semester_id]);
         $result = [];
         while ($row = $statement->fetch(\PDO::FETCH_ASSOC)){
             $user = new User();
@@ -166,7 +166,7 @@ class UserRepository
 
     public function getAllUserWithCertainMatakuliah(int $matakuliah_id): array
     {
-        $statement = $this->connection->prepare("SELECT u.id, u.nama, u.email, u.password, u.role_id, u.kelas_id, u.tanggal_lahir, u.tempat_lahir, u.jenis_kelamin, u.domisili, u.jurusan_id, u.link_foto, u.approved_at, u.semester_id FROM users u, pelajaran p, pelajaran_kelas pk WHERE u.kelas_id = pk.kelas_id AND pk.pelajaran_id = p.id AND p.id = ?");
+        $statement = $this->connection->prepare("SELECT u.id, u.nama, u.email, u.password, u.role_id, u.kelas_id, u.tanggal_lahir, u.tempat_lahir, u.jenis_kelamin, u.domisili, u.jurusan_id, u.link_foto, u.approved_at, u.semester_id FROM users u, pelajaran p, pelajaran_kelas pk WHERE u.kelas_id = pk.kelas_id AND u.semester_id = pk.semester_id AND pk.pelajaran_id = p.id AND p.id = ?");
         $statement->execute([$matakuliah_id]);
         $result = [];
         while ($row = $statement->fetch(\PDO::FETCH_ASSOC)){

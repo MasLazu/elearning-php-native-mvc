@@ -27,25 +27,22 @@
                 </button>
             </div>
         </form>
-        <div class="rounded-xl border-2">
-            <div class="overflow-x-auto w-full">
-                <table class="table w-full">
-                    <thead>
+            <div class="relative overflow-x-auto border sm:rounded-lg mt-6">
+                <table class="w-full text-left text-gray-500">
+                    <thead class="text-[#333c4d] uppercase bg-[#e6e6e6]">
                         <tr>
-                            <th>Id</th>
-                            <th>Nama</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Member Since</th>
+                            <th scope="col" class="p-4 text-center">Id</th>
+                            <th scope="col" class="px-6 py-3">Nama</th>
+                            <th scope="col" class="px-6 py-3">Email</th>
+                            <th scope="col" class="px-6 py-3">Role</th>
+                            <th scope="col" class="px-6 py-3">Member Since</th>
                         </tr>
                     </thead>
                     <tbody>
                     <?php foreach ($model['users'] as $user) { ?>
-                        <tr>
-                            <th>
-                                <p><?= $user->id ?></p>
-                            </th>
-                            <td>
+                        <tr class="bg-white border-b hover:bg-gray-50 cursor-pointer" onclick="window.location='<?= $model['domain'] . "/admin/user_detail/?id=" . $user->id ?>';">
+                            <th class="px-4 py-3 text-center"><?= $user->id ?></th>
+                            <td class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap">
                                 <div class="flex items-center space-x-3">
                                     <a href="<?= $model['domain'] . "/admin/user_detail/?id=" . $user->id ?>" class="avatar">
                                         <div class="rounded-full w-12 h-12">
@@ -57,8 +54,8 @@
                                     </div>
                                 </div>
                             </td>
-                            <td><?= $user->email ?></td>
-                            <td><?php switch ($user->role_id){
+                            <td class="px-6 py-3"><?= $user->email ?></td>
+                            <td class="px-6 py-3"><?php switch ($user->role_id){
                                     case 1:
                                         echo "Admin";
                                         break;
@@ -70,9 +67,7 @@
                                         break;
                                 }
                                 ?></td>
-                            <th>
-                                <button class="btn btn-ghost btn-xs"><?= $user->approved_at->format('Y-m-d') ?></button>
-                            </th>
+                            <td class="px-6 py-3"><?= $user->approved_at->format('Y-m-d') ?></td>
                         </tr>
                     <?php } ?>
                     </tbody>

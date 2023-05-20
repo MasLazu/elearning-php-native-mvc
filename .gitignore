@@ -1,4 +1,6 @@
 public/resources/users/photoProfile/*
+public/resources/tugas/lampiran/*
+public/resources/tugas/pengumpulan/*
 .env
 node_modules/
 .idea/

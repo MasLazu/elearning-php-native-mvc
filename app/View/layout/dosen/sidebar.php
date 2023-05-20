@@ -1,4 +1,4 @@
-<aside id="default-sidebar" class="z-40 flex-none w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+<aside id="default-sidebar" class="z-40 flex-none w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar" style="box-shadow: rgba(149, 157, 165, 0.9) 0px 0px 8px;">
     <div class="px-3 h-full py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800 flex flex-col justify-between">
         <div>
             <div class="flex items-center justify-center my-8">
@@ -7,29 +7,23 @@
             </div>
             <ul class="font-medium">
                 <li class="space-y-2">
-                    <a href="<?= $model['domain'] ?>/mahasiswa/beranda" class="flex items-center p-2.5 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <a href="<?= $model['domain'] ?>/dosen/beranda" class="flex items-center p-2.5 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                         <div class="w-8 flex justify-center">
                             <i class="fa-solid fa-house fa-chart-pie text-[#9ca3af] mx-1 text-xl"></i>
                         </div>
                         <span class="ml-3">Beranda</span>
                     </a>
-                    <a href="<?= $model['domain'] ?>/mahasiswa/jadwal/?semester=<?= $model['user']->semester_id ?>" class="flex items-center p-2.5 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <a href="<?= $model['domain'] ?>/dosen/jadwal" class="flex items-center p-2.5 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                         <div class="w-8 flex justify-center">
                             <i class="fa-solid fa-calendar text-[#9ca3af] mx-1 text-xl"></i>
                         </div>
                         <span class="ml-3">Jadwal</span>
                     </a>
-                    <a href="<?= $model['domain'] ?>/mahasiswa/tugas" class="flex items-center p-2.5 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <a href="<?= $model['domain'] ?>/dosen/rekap_nilai" class="flex items-center p-2.5 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                         <div class="w-8 flex justify-center">
-                            <i class="fa-solid fa-list-check text-[#9ca3af] mx-1 text-xl"></i>
+                            <i class="fa-solid fa-marker text-[#9ca3af] mx-1 text-xl"></i>
                         </div>
-                        <span class="ml-3">Tugas</span>
-                    </a>
-                    <a href="<?= $model['domain'] ?>/mahasiswa/nilai" class="flex items-center p-2.5 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                        <div class="w-8 flex justify-center">
-                            <i class="fa-solid fa-star-half-stroke text-[#9ca3af] mx-1 text-xl"></i>
-                        </div>
-                        <span class="ml-3">Nilai</span>
+                        <span class="ml-3">Rekap nilai</span>
                     </a>
                 </li>
             </ul>

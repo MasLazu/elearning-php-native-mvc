@@ -91,6 +91,7 @@ class UserService
         if($user->role_id == '3'){
             $user->jurusan_id = $userRequest->jurusan_id;
             $user->kelas_id = $userRequest->kelas_id;
+            $user->semester_id = $userRequest->semester_id;
         }
         $user->approved_at = new \DateTime();
         $this->userRepository->updateUserData($user);
